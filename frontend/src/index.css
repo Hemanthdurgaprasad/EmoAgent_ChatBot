@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sage:       #7C9A82;
+  --sage-light: #EAF2EB;
+  --sage-mid:   #C2D9C5;
+  --warm:       #F7F3EE;
+  --warm-mid:   #EDE5D8;
+  --sand:       #C4A882;
+  --ink:        #2C2C2A;
+  --ink-mid:    #5C5955;
+  --ink-soft:   #9C9890;
+  --white:      #FFFFFF;
+  --danger:     #C0392B;
+  --danger-bg:  #FDF0EE;
+  --radius:     14px;
+  --radius-sm:  8px;
+  --shadow:     0 1px 3px rgba(44,44,42,0.08), 0 4px 16px rgba(44,44,42,0.06);
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--sage-mid); border-radius: 10px; }
+
+/* Markdown in chat */
+.prose p { margin-bottom: 0.75rem; line-height: 1.7; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { font-weight: 500; color: var(--ink); }
+.prose ul, .prose ol { padding-left: 1.25rem; margin-bottom: 0.75rem; }
+.prose li { margin-bottom: 0.25rem; line-height: 1.6; }
+.prose hr { border: none; border-top: 1px solid var(--warm-mid); margin: 1rem 0; }
