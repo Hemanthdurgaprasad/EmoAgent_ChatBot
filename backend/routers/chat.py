@@ -18,6 +18,16 @@ class ChatRequest(BaseModel):
     session_id: str | None = None
 
 
+async def _get_user_session(session_id: str, user_id: str):
+    try:
+        session = await ChatSession.get(session_id)
+    except Exception:
+        return None
+    if not session or session.user_id != user_id:
+        return None
+    return session
+
+
 @router.post("/stream")
 async def chat_stream(
     body: ChatRequest,
@@ -25,8 +35,8 @@ async def chat_stream(
 ):
     # Load or create session
     if body.session_id:
-        session = await ChatSession.get(body.session_id)
-        if not session or session.user_id != str(current_user.id):
+        session = await _get_user_session(body.session_id, str(current_user.id))
+        if not session:
             raise HTTPException(status_code=404, detail="Session not found")
     else:
         session = ChatSession(user_id=str(current_user.id))
@@ -52,6 +62,9 @@ async def chat_stream(
     # Auto-title session from first message
     if len(session.messages) == 1:
         session.title = body.message[:50] + ("…" if len(body.message) > 50 else "")
+
+    session.updated_at = datetime.utcnow()
+    await session.save()
 
     async def generate():
         full_response = ""
